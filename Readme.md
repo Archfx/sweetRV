@@ -74,7 +74,7 @@ Terminal of RV32
 
 Firmware contains different example applications which you can run on your FPGA. In order to talk with processor using UART you need to install a terminal emulator application (screen/picocom). 
 
-Use the terminal to talk with your processor
+Below are the steps for the `screen` terminal to talk with your processor. Use `command + a + \` to exit.
 
 - on Mac
 ```shell
