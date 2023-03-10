@@ -1,4 +1,4 @@
-sweetRV
+sweetRV 🧁
 ======
 
 This is a fork of [femtorv](https://github.com/BrunoLevy/learn-fpga) which is directly ported to work on IceSugar-nano FPGA boards. Kudos to the original authors.
