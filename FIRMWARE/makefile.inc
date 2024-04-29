@@ -8,6 +8,7 @@
 # Base directory of the firmware
 
 FIRMWARE_DIR=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+#FIRMWARE_DIR=/sweetRV/FIRMWARE
 
 include $(FIRMWARE_DIR)/config.mk
 DEVICES_ASM=$(subst -D,-defsym ,$(DEVICES))

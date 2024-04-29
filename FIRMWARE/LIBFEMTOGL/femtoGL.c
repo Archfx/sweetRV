@@ -51,7 +51,8 @@ void GL_init(int mode) {
    }
    FGA_setmode(mode);     
    if(mode == -1) {
-     oled_init();     
+     oled_init(); 
+     st7735_init();    
    } else {
      GL_width  = FGA_width;
      GL_height = FGA_height;
@@ -64,6 +65,7 @@ void GL_init(int mode) {
    GL_width  = OLED_WIDTH;
    GL_height = OLED_HEIGHT;
    oled_init();
+   st7735_init();
 }
 #endif
 

@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/archfx/Documents/sweetRV/FIRMWARE/CPP_EXAMPLES",
+      "program": "/Users/archfx/Documents/sweetRV/FIRMWARE/CPP_EXAMPLES/build/Debug/outDebug"
+    }
+  ]
+}

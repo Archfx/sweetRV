@@ -55,5 +55,24 @@
 	call oled3
 .endm
 
+
+.macro OLED4 cmd,arg1,arg2,arg3, arg4
+	li a0,\cmd
+	li a1,\arg1
+	li a2,\arg2
+	li a3,\arg3	
+	li a4,\arg4
+	call oled4
+.endm
+
+.macro PIXEL_DATA arg1,arg2,arg3, arg4
+	li a0,\arg1
+	li a1,\arg2
+	li a2,\arg3
+	li a3,\arg4	
+	call pixel_data
+.endm
+
+
 ################################################################################
 	

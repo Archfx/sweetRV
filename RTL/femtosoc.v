@@ -22,6 +22,7 @@
 `include "DEVICES/Buttons.v"        // Driver for the buttons
 `include "DEVICES/FGA.v"            // Femto Graphic Adapter
 `include "DEVICES/HardwareConfig.v" // Constant registers to query hardware config.
+`include "DEVICES/st7735.v"
 
 // The Ice40UP5K has ample quantities (128 KB) of single-ported RAM that can be
 // used as system RAM (but cannot be inferred, uses a special block).
@@ -85,6 +86,11 @@ module femtosoc(
 `ifdef NRV_IO_FGA		
    output [3:0] gpdi_dp,
 `endif
+   output oled_cs,
+   output oled_clk,
+   output oled_mosi,
+   output oled_dc,
+   output oled_reset,
 `ifdef NRV_IO_IRDA
    output irda_TXD,
    input  irda_RXD,
@@ -400,6 +406,59 @@ HardwareConfig hwconfig(
    );
 `endif   
 
+/********************** SPI oled display ******/
+`ifdef NRV_IO_SPI
+   simplespi_wrapper spi0 (
+		.clk		(clk),
+		.reset_n	(reset_n),
+		.data_out	(data_miso),
+		.data_in	(data_mosi),
+		.cs_n		(spi_cs_n),
+		.rd_n		(rd_n),
+		.wr_n		(wr_n),
+		.addr		(addr[2:0]),
+		.sclk		(spi_sclk),
+		.mosi		(spi_mosi),
+		.miso		(spi_miso),
+		.cs			(spi_cs)
+	);
+
+   simpleio ioporta
+	(
+		.clk		(clk),
+		.reset_n	(reset_n),
+		.data_out	(data_miso),
+		.data_in	(data_mosi),
+		.cs_n		(port_cs_n),
+		.rd_n		(rd_n),
+		.wr_n		(wr_n),
+		.addr		(addr[1:0]),
+		.P1_out		(P1_out),
+		.P1_in		(P1_in),
+		.P1_oen		(P1_oen),
+		.P2_out		(P2_out),
+		.P2_in		(P2_in),
+		.P2_oen		(P2_oen)
+	);
+`endif 
+   
+   wire st7735_wbusy;
+   st7735_controller u_st7735_controller(
+      .clk(clk),
+      .wstrb(io_wstrb),			
+      .sel_cntl(io_word_address[IO_SSD1351_CNTL_bit]),
+      .sel_cmd(io_word_address[IO_SSD1351_CMD_bit]),
+      .sel_dat(io_word_address[IO_SSD1351_DAT_bit]),
+      .sel_dat16(io_word_address[IO_SSD1351_DAT16_bit]),			
+      .wdata(io_wdata),
+      .wbusy(st7735_wbusy),
+      .oled_cs(oled_cs),
+      .oled_clk(oled_clk),
+      .oled_mosi(oled_mosi),
+      .oled_dc(oled_dc),
+      .reset(oled_reset)
+   );
+
 /********************** UART ****************************************/
 `ifdef NRV_IO_UART
 
@@ -552,7 +611,8 @@ end
 `endif		   
 `ifdef NRV_IO_SPI_FLASH
         | spi_flash_wbusy
-`endif		   
+`endif
+        |st7735_wbusy		   
 ; 
 
 /****************************************************************/

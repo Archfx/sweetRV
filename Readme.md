@@ -53,6 +53,14 @@ docker run -t -p 6080:6080 -v "${PWD}/:/$LOC" -w /$LOC --name ice40tools archfx/
 docker exec -it ice40tools /bin/bash
 ```
 
+
+Build the hex file generating tool
+----
+
+```shell
+g++ -I../../LIBFEMTORV32/ ../../LIBFEMTORV32/femto_elf.c firmware_words.cpp -o firmware_words -fpermissive -DSTANDALONE_FEMTOELF
+```
+
 Build the Binary
 -------
 Now the environment is ready. Next, we need to compile the firmware. This step will take the assembly files/ c source files and generate a hex file that is the firmware for our processor.

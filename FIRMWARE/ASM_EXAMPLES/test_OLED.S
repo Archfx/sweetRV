@@ -2,7 +2,7 @@
 # all the 65K colors.
 
 .include "femtorv32.inc"
-.include "ssd1351_1331.inc"
+.include "st7753_inc.S"
 
 # On the IceStick, install the code in BRAM (much faster)
 .ifdef ICE_STICK
