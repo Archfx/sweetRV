@@ -66,7 +66,29 @@ st7735_init:
 	li a0,100
 	call milliwait
     OLED0 0x2C #CMD_RAMWR = 8'h2C;
-	PIXEL_DATA 0xff, 0xff, 0xff, 0xff
+	
+	li s2,12720	
+	li s3,0
+	li t0,0xffffffff #init color
+
+# loop_y:	li s0,0
+init_loop:	add s0,s0,1
+
+	# li t0,0x55555555
+
+	sw t0, IO_SSD1351_DAT16(gp)
+	# sw t0, IO_SSD1351_DAT16(gp)
+	
+	bne s0,s2,init_loop
+	# add s1,s1,1
+	# bne s1,s0,loop_y
+	# add s3,s3,1
+
+
+	sw s3, 0(gp)
+	# OLED0 0x2C #CMD_RAMWR = 8'h2C;
+
+	# PIXEL_DATA 0xff, 0xff, 0xff, 0xff
 	
 
 
@@ -94,6 +116,41 @@ st7735_init:
 	# OLED0 0xaf                   # display mode on
 # .endif
 
+# animate:
+
+#     OLED4 0x2a, 0x00, 0x1a, 0x00, 0x6a # CMD_PARAM4_CASET = 8'h6A;
+#       #start and end of row position to draw on the screen
+#       #the drawable area is starting at 0
+#     OLED4 0x2B, 0x00, 0x01, 0x00, 0xa1 
+# 	OLED0 0x2C #CMD_RAMWR = 8'h2C
+
+# 		li s2,128	
+# 		li s3,0
+# 		li t0,0x00 #init color
+
+# 	loop_y_2:	li s0,0
+# 	loop_x_2:	add s0,s0,1
+
+# 		# li t0,0x55555555
+# 		add t0,s0,s3
+# 		sll t0,t0,3
+		
+# 		srl t1,s0,5
+# 		and t1,t1,7
+# 		or  t0,t0,t1
+
+# 		sw t0, IO_SSD1351_DAT16(gp)
+# 		# sw t0, IO_SSD1351_DAT16(gp)
+		
+# 		bne s0,s2,loop_x_2
+# 		add s1,s1,1
+# 		bne s1,s0,loop_y_2
+# 		add s3,s3,1
+
+
+# 		sw s3, 0(gp)
+
+# 		call animate
 
 	lw ra, 0(sp)
 	add sp,sp,4

@@ -85,6 +85,8 @@ void main() {
 	    Y0 += Vy;
 	}
 	++frame;
-        IO_OUT(IO_LEDS,frame >> 4);
+        st7735_write_window_done();
+        // IO_OUT(IO_LEDS,frame >> 4);
+        // st7735_write_window_done();
     }
 }

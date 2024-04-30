@@ -130,7 +130,7 @@ extern void st7735_init();
 extern void st7735_write_window(uint32_t x1, uint32_t y1, uint32_t x2, uint32_t y2);
 extern void oled4(uint32_t cmd, uint32_t arg1, uint32_t arg2, uint32_t arg3, uint32_t arg4);
 extern void pixel_data(uint32_t arg1, uint32_t arg2, uint32_t arg3, uint32_t arg4);
-
+extern void st7735_write_window_done();
 /* MAX7219 led matrix */
 extern void MAX7219_init();
 extern void MAX7219(uint32_t address, uint32_t value);

@@ -7,30 +7,78 @@
 .global	st7735_write_window
 .type	st7735_write_window, @function
 st7735_write_window:
-	OLED4 0x2a, 0x00, 0x1a, 0x00, 0x6a # CMD_PARAM4_CASET = 8'h6A;
-	OLED4 0x2B, 0x00, 0x01, 0x00, 0xa1 # CMD_PARAM4_RASET = 8'hA1;
-	OLED0 0x2C
-	
-	PIXEL_DATA 0xff, 0xff, 0xff, 0xff
-	PIXEL_DATA 0xaa, 0xbb, 0xcc, 0xdd
 	add sp,sp,-4
         sw ra, 0(sp)
 	mv t0, a0
-	mv t1, a2
-	mv t2, a1
+	mv t1, a1
+	mv t2, a2
 	mv t3, a3
-	li a0, 0x2c
-	mv a1, t0
+	
+	li a0, 0x2a
+	li a1, 0x00
+	mv a2, t0
+	li a3, 0x1a
+	mv a4, t2
+	# mv a1, t0
+	# mv a2, t1
+	# OLED4 0x2a, 0x00, 0x1a, 0x00, 0x6a # CMD_PARAM4_CASET = 8'h6A;
+	# OLED4 0x2b, 0x00, 0x01, 0x00, 0xa1 # CMD_PARAM4_RASET = 8'hA1;
+	# OLED0 0x2C
+	call oled4
+
+	# sw a0, IO_SSD1351_CMD(gp)
+	# sw a1, IO_SSD1351_DAT(gp)
+	# sw a2, IO_SSD1351_DAT(gp)
+	# sw a3, IO_SSD1351_DAT(gp)
+	# sw a4, IO_SSD1351_DAT(gp)
+
+	li a0, 0x2b
+	li a1, 0x00
 	mv a2, t1
-	call oled2
-	li a0, 0x75
-	mv a1, t2
-	mv a2, t3
-	call oled2
-.ifdef SSD1351	
-	li a0, 0x5c
-	call oled0
-.endif	
+	li a3, 0x00
+	mv a4, t3
+	call oled4
+
+	# sw a0, IO_SSD1351_CMD(gp)
+	# sw a1, IO_SSD1351_DAT(gp)
+	# sw a2, IO_SSD1351_DAT(gp)
+	# sw a3, IO_SSD1351_DAT(gp)
+	# sw a4, IO_SSD1351_DAT(gp)
+
+	# sw a0, IO_SSD1351_DAT16(gp)
+
+	OLED0 0x2C #CMD_RAMWR = 8'h2C
+	
+# 	PIXEL_DATA 0xff, 0xff, 0xff, 0xff
+# 	PIXEL_DATA 0xaa, 0xbb, 0xcc, 0xdd
+# 	add sp,sp,-4
+#         sw ra, 0(sp)
+# 	mv t0, a0
+# 	mv t1, a2
+# 	mv t2, a1
+# 	mv t3, a3
+# 	li a0, 0x2c
+# 	mv a1, t0
+# 	mv a2, t1
+# 	call oled2
+# 	li a0, 0x75
+# 	mv a1, t2
+# 	mv a2, t3
+# 	call oled2
+# .ifdef SSD1351	
+# 	li a0, 0x5c
+# 	call oled0
+# .endif	
+	lw ra, 0(sp)
+	add sp,sp,4
+	ret
+	
+.global	st7735_write_window_done
+.type	st7735_write_window_done, @function
+st7735_write_window_done:
+	add sp,sp,-4
+        sw ra, 0(sp)
+	OLED0 0x2C #CMD_RAMWR = 8'h2C	
 	lw ra, 0(sp)
 	add sp,sp,4
 	ret
