@@ -55,9 +55,9 @@ module st7735_controller(
    
    generate
    
-   if(`NRV_FREQ <= 12) begin           // Divide by 4 -> 3 MHz
+   if(`NRV_FREQ <= 12) begin           // Divide by 2 -> 6 MHz
          st7735_clk #(
-            .width(2)
+            .width(1)
          )slow_clk(
             .clk(clk),
             .oled_clk(oled_clk),

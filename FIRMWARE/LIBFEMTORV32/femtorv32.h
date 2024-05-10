@@ -111,6 +111,9 @@ int sd_writesector(uint32_t sector, uint8_t* buffer, uint32_t sector_count); /* 
 #define OLED_HEIGHT 64
 #endif
 
+#define OLED_WIDTH  98
+#define OLED_HEIGHT 160
+
 #ifndef OLED_WIDTH
 #define OLED_WIDTH 0
 #endif

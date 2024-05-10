@@ -61,6 +61,7 @@ void main() {
     GL_init(GL_MODE_CHOOSE_RGB);
     int frame = 0;
     for(;;) {
+        
 	GL_write_window(0,0,GL_width-1,GL_height-1);
        
         int scaling = sintab[frame&63]+400;

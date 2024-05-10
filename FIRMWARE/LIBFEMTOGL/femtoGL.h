@@ -131,7 +131,8 @@ static inline void GL_write_window(int x1, int y1, int x2, int y2) {
       oled_write_window(x1,y1,x2,y2);
    }
 # endif
-   FGA_write_window(x1,y1,x2,y2);   
+   // FGA_write_window(x1,y1,x2,y2); 
+   st7735_write_window(x1,y1,x2,y2);  
 }
 #else
 static inline void GL_write_window(int x1, int y1, int x2, int y2) {

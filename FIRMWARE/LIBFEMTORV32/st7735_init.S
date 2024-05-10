@@ -55,9 +55,11 @@ st7735_init:
       # w  Width of window
       # h  Height of window
 
-    OLED4 0x2a, 0x00, 0x1a, 0x00, 0x6a # CMD_PARAM4_CASET = 8'h6A;
+		#         0, 14, 0, 112
+    OLED4 0x2a, 0x00, 0x0e, 0x00, 0x6a # CMD_PARAM4_CASET = 8'h6A;
       #start and end of row position to draw on the screen
       #the drawable area is starting at 0
+	  	#		 0, 1, 0, 161
     OLED4 0x2B, 0x00, 0x01, 0x00, 0xa1 # CMD_PARAM4_RASET = 8'hA1;
     OLED0 0x13 # CMD_NORON = 8'h13;
 	li a0,10
@@ -67,9 +69,9 @@ st7735_init:
 	call milliwait
     OLED0 0x2C #CMD_RAMWR = 8'h2C;
 	
-	li s2,12720	
+	li s2,15680 #160*98	
 	li s3,0
-	li t0,0xffffffff #init color
+	li t0,0 #init color
 
 # loop_y:	li s0,0
 init_loop:	add s0,s0,1
@@ -86,35 +88,7 @@ init_loop:	add s0,s0,1
 
 
 	sw s3, 0(gp)
-	# OLED0 0x2C #CMD_RAMWR = 8'h2C;
-
-	# PIXEL_DATA 0xff, 0xff, 0xff, 0xff
 	
-
-
-	# OLED1 0xfd, 0x12             # unlock driver
-	# OLED1 0xfd, 0xb1             # unlock commands
-	# OLED0 0xae                   # display off
-	# OLED0 0xa4                   # display mode off
-	# OLED2 0x15,0x00,0x7f         # column address
-	# OLED2 0x75,0x00,0x7f         # row address
-	# OLED1 0xb3,0xf1              # front clock divider (see section 8.5 of manual)
-	# OLED1 0xca, 0x7f             # multiplex
-	# OLED1 0xa0, 0x74             # remap, data format, increment
-	# OLED1 0xa1, 0x00             # display start line
-	# OLED1 0xa2, 0x00             # display offset
-	# OLED1 0xab, 0x01             # VDD regulator ON
-	# OLED3 0xb4, 0xa0, 0xb5, 0x55 # segment voltage ref pins
-	# OLED3 0xc1, 0xc8, 0x80, 0xc0 # contrast current for colors A,B,C
-	# OLED1 0xc7, 0x0f             # master contrast current
-	# OLED1 0xb1, 0x32             # length of segments 1 and 2 waveforms
-	# OLED3 0xb2, 0xa4, 0x00, 0x00 # display enhancement
-	# OLED1 0xbb, 0x17             # first pre-charge voltage phase 2
-	# OLED1 0xb6, 0x01             # second pre-charge period (see table 9-1 of manual)
-	# OLED1 0xbe, 0x05             # Vcomh voltage
-	# OLED0 0xa6                   # display on
-	# OLED0 0xaf                   # display mode on
-# .endif
 
 # animate:
 

@@ -14,17 +14,17 @@ st7735_write_window:
 	mv t2, a2
 	mv t3, a3
 	
-	li a0, 0x2a
-	li a1, 0x00
-	mv a2, t0
-	li a3, 0x1a
-	mv a4, t2
-	# mv a1, t0
-	# mv a2, t1
-	# OLED4 0x2a, 0x00, 0x1a, 0x00, 0x6a # CMD_PARAM4_CASET = 8'h6A;
-	# OLED4 0x2b, 0x00, 0x01, 0x00, 0xa1 # CMD_PARAM4_RASET = 8'hA1;
-	# OLED0 0x2C
-	call oled4
+	# li a0, 0x2a
+	# li a1, 0x00
+	# mv a2, t0
+	# li a3, 0x1a
+	# mv a4, t2
+	# # mv a1, t0
+	# # mv a2, t1
+	# # OLED4 0x2a, 0x00, 0x1a, 0x00, 0x6a # CMD_PARAM4_CASET = 8'h6A;
+	# # OLED4 0x2b, 0x00, 0x01, 0x00, 0xa1 # CMD_PARAM4_RASET = 8'hA1;
+	# # OLED0 0x2C
+	# call oled4
 
 	# sw a0, IO_SSD1351_CMD(gp)
 	# sw a1, IO_SSD1351_DAT(gp)
@@ -32,12 +32,19 @@ st7735_write_window:
 	# sw a3, IO_SSD1351_DAT(gp)
 	# sw a4, IO_SSD1351_DAT(gp)
 
-	li a0, 0x2b
-	li a1, 0x00
-	mv a2, t1
-	li a3, 0x00
-	mv a4, t3
-	call oled4
+	# li a0, 0x2b
+	# li a1, 0x00
+	# mv a2, t1
+	# li a3, 0x00
+	# mv a4, t3
+	# call oled4
+
+			#         0, 14, 0, 112
+    OLED4 0x2a, 0x00, 0x0e, 0x00, 0x6a # CMD_PARAM4_CASET = 8'h6A;
+      #start and end of row position to draw on the screen
+      #the drawable area is starting at 0
+	  	#		 0, 1, 0, 161
+    OLED4 0x2B, 0x00, 0x01, 0x00, 0xa1 # CMD_PARAM4_RASET = 8'hA1;
 
 	# sw a0, IO_SSD1351_CMD(gp)
 	# sw a1, IO_SSD1351_DAT(gp)
