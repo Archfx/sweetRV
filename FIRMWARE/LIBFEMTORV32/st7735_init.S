@@ -30,9 +30,9 @@ st7735_init:
 	# sw a0,4(gp)
 
 	#  parameter CMD_SWRESET_DELAY = 300000; //150ms delay (150*2000)
-#  parameter CMD_SLPOUT_DELAY = 510000; //255ms delay
-#  parameter CMD_NORON_DELAY = 20000; //10ms delay
-#  parameter CMD_DISPON_DELAY = 200000; //100ms delay
+	#  parameter CMD_SLPOUT_DELAY = 510000; //255ms delay
+	#  parameter CMD_NORON_DELAY = 20000; //10ms delay
+	#  parameter CMD_DISPON_DELAY = 200000; //100ms delay
 
 	# Initialization sequence / configuration
 	OLED0 0x01 #software reset CMD_SWRESET = 8'h01
@@ -48,7 +48,42 @@ st7735_init:
     OLED1 0xc5, 0x0e # CMD_PARAM_VMCTR1 = 8'h0E; 
     OLED0 0x21 # CMD_INVON = 8'h21;
     OLED1 0x36, 0xc8 # CMD_PARAM_MADCTL = 8'hC8;
-    OLED1 0x3A, 0x05 # CMD_PARAM_COLMOD = 8'h05;
+    OLED1 0x3A, 0x00 # CMD_PARAM_COLMOD = 8'h05;
+
+	  	# D7  D6  D5  D4  D3  D2  D1  D0
+		# MY  MX  MV  ML RGB  MH   -   -
+		# ------------------------------
+		# ------------------------------
+		# MV  MX  MY -> {MV (row / column exchange) MX (column address order), MY (row address order)}
+		# ------------------------------
+		#  0   0   0 -> begin left-up corner, end right-down corner 
+		#               left-right (normal view) 
+		#  0   0   1 -> begin left-down corner, end right-up corner 
+		#               left-right (Y-mirror)
+		#  0   1   0 -> begin right-up corner, end left-down corner 
+		#               right-left (X-mirror)
+		#  0   1   1 -> begin right-down corner, end left-up corner
+		#               right-left (X-mirror, Y-mirror)
+		#  1   0   0 -> begin left-up corner, end right-down corner
+		#               up-down (X-Y exchange)  
+		#  1   0   1 -> begin left-down corner, end right-up corner
+		#               down-up (X-Y exchange, Y-mirror)
+		#  1   1   0 -> begin right-up corner, end left-down corner 
+		#               up-down (X-Y exchange, X-mirror)  
+		#  1   1   1 -> begin right-down corner, end left-up corner
+		#               down-up (X-Y exchange, X-mirror, Y-mirror)
+		# ------------------------------
+		#  ML: vertical refresh order 
+		#      0 -> refresh top to bottom 
+		#      1 -> refresh bottom to top
+		# ------------------------------
+		# RGB: filter panel
+		#      0 -> RGB 
+		#      1 -> BGR        
+		# ------------------------------ 
+		#  MH: horizontal refresh order 
+		#      0 -> refresh left to right 
+		#      1 -> refresh right to left
 
       # x  Top left corner x coordinate
       # y  Top left corner x coordinate
