@@ -1,14 +1,14 @@
 sweetRV 🧁
 ======
 
-This is a fork of [femtorv](https://github.com/BrunoLevy/learn-fpga) which is directly ported to work on IceSugar-nano FPGA boards. Kudos to the original authors.
+This is a fork of [femtorv](https://github.com/BrunoLevy/learn-fpga), which is directly ported to work on IceSugar-nano FPGA boards. Kudos to the original authors.
 
 <img src="https://raw.githubusercontent.com/Archfx/ice40lib/main/images/ice40.jpeg" alt="docker" width="200" align="right">
 
 Summary
 ------
 
-This repository contains RISCV processor that can be packed withing 1200LUTs with rv32i tool chain. There are bunch of firmware examples to try. You can use the docker enronment direclty without installing any dependancies.
+This repository contains an RISC-V processor that can be packed within 1200LUTs with the RV32I tool chain. There are a bunch of firmware examples to try. You can use the Docker environment directly without installing any dependencies.
 
 
 Get Started
@@ -22,7 +22,7 @@ Docker Image
   <img src="https://dockerico.blankenship.io/image/archfx/ice40tools" alt="Sublime's custom image"/>
 </p>
 
-Follow the steps to build usign the docker environemt. (You should have the docker deamon installed on your system)
+Follow the steps to build using the Docker environment. (You should have the Docker daemon installed on your system)
 
 1. Clone the repository
 
@@ -30,7 +30,7 @@ Follow the steps to build usign the docker environemt. (You should have the dock
 git clone https://github.com/Archfx/sweetRV
 ```
 
-2. Pull the docker image from docker-hub
+2. Pull the Docker image from docker-hub
 
 
 ```shell
@@ -63,24 +63,24 @@ g++ -I../../LIBFEMTORV32/ ../../LIBFEMTORV32/femto_elf.c firmware_words.cpp -o f
 
 Build the Binary
 -------
-Now the environment is ready. Next, we need to compile the firmware. This step will take the assembly files/ c source files and generate a hex file that is the firmware for our processor.
+Now the environment is ready. Next, we need to compile the firmware. This step will take the assembly files/ C source files and generate a hex file that is the firmware for our processor.
 
 ```shell
 $ cd FIRMWARE/EXAMPLES
 $ make hello.hex
 ```
-This will generate the hex file of the firmware. Next we need to build the hardware with inbuilt firmware. For that follow the below steps from the main folder.
+This will generate the hex file of the firmware. Next, we need to build the hardware with in-built firmware. For that, follow the steps below from the main folder.
 
 ```shell
 $ make ICESUGAR_NANO
 ```
 
-This will produce the file `femtosoc.bin` at the home folder. You can directly upload this to the FPGA by drag and drop.
+This will produce the file `femtosoc.bin` in the home folder. You can directly upload this to the FPGA by drag and drop.
 
 Terminal of RV32
 ------
 
-Firmware contains different example applications which you can run on your FPGA. In order to talk with processor using UART you need to install a terminal emulator application (screen/picocom). 
+Firmware contains different example applications that you can run on your FPGA. In order to talk with the processor using UART, you need to install a terminal emulator application (screen/picocom). 
 
 Below are the steps for the `screen` terminal to talk with your processor. Use `command + a + \` to exit.
 
